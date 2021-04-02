@@ -1,124 +1,129 @@
 import sys
+import mysql.connector as mysql
+connection=mysql.connect(
+ host="localhost",
+ user="root",
+ password="safa1234",
+ database="BKUni",
+ auth_plugin='mysql_native_password'
+)
 
-Books = []
-class BKUni:
- def __init__(self, id, B_name,quantity , B_price, major, level):
-    self.id = id
-    self.B_name = B_name
-    self.B_price = B_price
-    self.major = major
-    self.level = level
-    self.quantity = quantity
+#class BKUni:
+cursor =connection.cursor()
+cursor.execute("SHOW DATABASES")
 
- def setLevel(self, level):
-     self.level = level
+for x in cursor:
+     print(x)
 
- def getLevel(self):
-     return self.level
-
- def setMajor(self, major):
-     self.major = major
-
- def getMajor(self):
-     return self.major
-
- def setId(self, id):
-     self.id = id
-
- def setBname(self, B_name):
-     self.B_name = B_name
-
- def setBpice(self, B_price):
-     self.B_price = B_price
-
- def getId(self):
-     return self.id
-
- def getBname(self):
-     return self.B_name
-
- def getBprice(self):
-     return self.B_price
-
- def display(self):
-     print('Books ID:', self.id, '\t Books name :', self.B_name, '\t Price', self.B_price, '\t major', self.major, '\t Level', self.level)
-
-
-print("Welcome to Books store")
+print("---------------------Welcome to Books store--------------------")
 SE = int(input(" 1)Admin \n 2)Student \n enter your select :"))
 
 while True:
-    if SE == 1:
-        admin = 0
-        while admin != 6:
-         print("1.Add new Book")
-         print("2.Delete book")
-         print("3.Modify books ")
-         print("4.View books rating")
-         print("5.View the borrowing status ")
-         print("6.Exit")
-         admin = int(input("enter choice : "))
-         if admin == 1:
+      if SE == 1:
+          admin = 0
+          while admin != 5:
+           print("1.Add new Book")
+           print("2.Delete book")
+           print("3.Modify books ")
+           print("4.View the borrowing status ")
+           print("5.Exit")
+           admin = int(input("enter choice : "))
+           if admin == 1:
 
-             id = input("please enter the id book :")
-             name = input("please enter the name of book")
-             quantity = input("please enter the number of books")
-             price = input("please enter the price book")
-             major = input("please enter your major ")
-             level = input("please enter your level")
+               id = input("please enter the id book :")
+               name = input("please enter the name of book:")
+               price = input("please enter the price book:")
+               quantity = input("please enter the number of books:")
+               status=input("please enter the status of book:")
 
-             book = BKUni(id, name, quantity, price, major, level)
-             Books.append(book)
-             print("Book Details added successfully .")
+               insert="INSERT INTO book(book_id,title,price,quantity,status) VALUES (%s,%s,%s,%s,%s)"
+               valuse=(id,name, price,quantity,status)
+               cursor.execute(insert,valuse)
+               connection.commit()
+               print("------------------Book Details added successfully--------------------")
 
-         elif admin == 2:
-             for x in range(len(Books)):
-                 print(Books[x].display())
-             dele = input("Enter Book name to delete: ")
-             if (dele not in Books):
-                 ans = input("Entered book does not exists,do you want to retry ? (y/n): ")
-                 if (ans == "y"):
-                     #del1 = input("Enter book name to delete: ")
-                     Books.remove(dele)
-                     print("book removed successfully.")
-                     print(Books)
-                 else:
-                     print("book deletion aborted.")
-             else:
-                 Books.remove(dele)
-                 print("city removed successfully.")
-                 print(Books)
-
-         elif admin == 4:
-             for x in range(len(Books)):
-                 print(Books[x].getMajor())
-                 print(Books[x].display())
-
-         elif admin == 5:
-             for x in range(len(Books)):
-                 print(Books[x].display())
-
-         elif admin == 6:
-             break
-        SE = int(input(" 1)Admin \n 2)Student \n enter your select :"))
+           elif admin == 2:
+               book_id_delet = input("Enter Book id to delete: ")
+               delet="DELETE FROM book WHERE book_id = %s"
+               delete_val=(book_id_delet, )
+               cursor.execute(delet,delete_val)
+               connection.commit()
+               print("------------------book removed successfully------------------")
 
 
-    elif SE == 2:
-        print("Welcome student ")
-        st = 0
-        while st != 6:
-            print("1.View the available books in BKUni")
-            print("2.Buy a books ")
-            print("3.Borrow a books ")
-            print("4.Search for a specific books")
-            print("5.Rating a bought or borrowed books")
-            print("6.Exit")
-            st = int(input("enter choice : "))
+           elif admin == 3:
+               update=int(input("Enter Book id to update:"))
+               choice=int(input("what information of book you want to update? \n press:\n 1 to change book id \n 2 to change book name \n 3 to change book price \n 4 to change quantity of book \n"))
+               if(choice==1):
+                  new_id=int(input("Enter new book id:"))
+                  update_id="UPDATE book SET book_id =%s WHERE book_id =%s"
+                  val_id=(new_id,update)
+                  cursor.execute(update_id,val_id)
+                  connection.commit()
+                  print("------------------book updated successfully------------------")
 
-        break
-    else:
-        print("Unknown Option Selected! pleas try again ")
-        SE = int(input(" 1)Admin \n 2)Student \n enter your select :"))
+               if(choice==2):
+                  new_name=int(input("Enter new book name:"))
+                  update_name="UPDATE book SET book_title=%s WHERE book_id =%s"
+                  val_name=(new_name,update)
+                  cursor.execute(update_name,val_name)
+                  connection.commit()
+                  print("------------------book updated successfully------------------")
+
+               if(choice==3):
+                  new_price=int(input("Enter new book price:"))
+                  update_price="UPDATE book SET price =%s WHERE book_id =%s"
+                  val_price=(new_price,update)
+                  cursor.execute(update_price,val_price)
+                  connection.commit()
+                  print("------------------book updated successfully------------------")
+
+               if(choice==4):
+                 new_quantity=int(input("Enter new book quantity:"))
+                 update_quantity="UPDATE book SET quantity=%s WHERE book_id =%s"
+                 val_quantity=(new_quantity,update)
+                 cursor.execute(update_quantity,val_quantity)
+                 connection.commit()
+                 print("------------------book updated successfully------------------")
+
+               elif(choice==5):
+                   new_status=int(input("Enter new book status:"))
+                   update_status="UPDATE book SET status=%s WHERE book_id =%s"
+                   val_status=(new_status,update)
+                   cursor.execute(update_status,val_status)
+                   connection.commit()
+                   print("------------------book updated successfully------------------")
+
+
+
+           elif admin == 4:
+               book_id=int(input("Enter the book ID that you want to see the status:"))
+               sql="select status from book where book_id=%s"
+               val=(book_id,)
+               cursor.execute(sql,val)
+               print("----------",cursor.fetchone())
+
+           elif admin == 5:
+               break
+          SE = int(input(" 1)Admin \n 2)Student \n enter your select :"))
+
+
+      elif SE == 2:
+          print("Welcome student ")
+          st = 0
+          while st != 6:
+              print("1.View the available books in BKUni")
+              print("2.Buy a books ")
+              print("3.Borrow a books ")
+              print("4.Search for a specific books")
+              print("5.Rating a bought or borrowed books")
+              print("6.Exit")
+              st = int(input("enter choice : "))
+
+          break
+      else:
+          print("Unknown Option Selected! pleas try again ")
+          SE = int(input(" 1)Admin \n 2)Student \n enter your select :"))
 
 sys.exit()
 

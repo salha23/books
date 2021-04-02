@@ -1,5 +1,10 @@
-create database BKUni;
-use BKUni;
+CREATE TABLE `user` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `major` varchar(45) DEFAULT NULL,
+  `level` int DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 CREATE TABLE `book` (
   `book_id` int NOT NULL AUTO_INCREMENT,
   `book_title` varchar(45) DEFAULT NULL,
@@ -25,9 +30,3 @@ CREATE TABLE `book` (
   CONSTRAINT `user_borrow_id` FOREIGN KEY (`id_user`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
   
-CREATE TABLE `user` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
-  `major` varchar(45) DEFAULT NULL,
-  `level` int DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
