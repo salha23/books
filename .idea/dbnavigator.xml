@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -17,18 +17,14 @@
       <scope value="GLOBAL" />
       <destination value="FILE" />
       <format value="EXCEL" />
-      <charset value="UTF-8" />
+      <charset value="windows-1256" />
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="false" />
-    <loaded-nodes>
-      <connection connection-id="fc318308-ed82-4e1b-b082-6a92307825be">
-        <schema name="BKUni" object-types="procedure, index, function, dataset trigger, constraint, view, column, table" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="fc318308-ed82-4e1b-b082-6a92307825be">
@@ -48,7 +44,7 @@
     <retain-sticky-names value="false" />
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/BKUni_database.sql" connection-id="e0ab527b-3717-42f1-9b59-553967edcf75" session-id="MAIN" current-schema="BKUni" />
+    <mapping file-url="file://$PROJECT_DIR$/BKUni_database.sql" connection-id="fc318308-ed82-4e1b-b082-6a92307825be" session-id="MAIN" current-schema="BKUni" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />

@@ -1,0 +1,16 @@
+Metadata-Version: 2.0
+Name: importfrom
+Version: 1.3.0
+Summary: Import python functions from anywhere!
+Home-page: https://github.com/libeclipse/import-from
+Author: libeclipse
+Author-email: libeclipse@gmail.com
+License: MIT
+Keywords: importfrom,import,from,anywhere,host
+Platform: UNKNOWN
+Requires-Dist: beautifulsoup4
+Requires-Dist: requests
+
+Disclaimer: This is not a serious project, just a bit of fun.
+
+
