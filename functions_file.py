@@ -156,7 +156,7 @@ class Admin:
     def checkID(self):
         flag = False
         while not flag:
-            update = input("Enter Book id:   ")
+            update = input("Enter Book id to update:   ")
             try:
                 update = int(update)
                 if update <= 0:
@@ -175,15 +175,15 @@ class Admin:
         flag = False
         while not flag:
             cursor.execute("SELECT * FROM book WHERE book_id = %s", (update,))
-            data = cursor.fetchall()
-            if data is not None:
-                return update
-                flag = True
-            else:
+            data = cursor.fetchone()
+            if data is None:
                 print(colored("!!!!!", "red"))
-                print(colored("This ID is not Exist ,", "red"))
+                print(colored("This ID is not Exist", "red"))
                 print(colored("!!!!!", "red"))
                 self.checkID()
+            else:
+                return update
+                flag = True
 
 
 
