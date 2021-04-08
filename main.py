@@ -23,7 +23,7 @@ cursor =connection.cursor()
 
 
 a = Admin()
-s = student()
+s = buyer()
 c = commonFunc()
 
 
@@ -32,7 +32,7 @@ c.welcome()
 
 while True:
 
-    SE = input(" Plase Choose From The below: \n 1)Admin \n 2)Student \n 3) Exit \n enter your select :   ")
+    SE = input(" Plase Choose From The below: \n 1)Admin \n 2)Buyer \n 3) Exit \n enter your select :   ")
 
     # Admin Part:
     if SE == '1':
@@ -86,10 +86,10 @@ while True:
                 break
 
             elif admin == None or admin == '':
-                print("Please Enter a choice")
+                print(colored("Please Enter a choice","red"))
 
             else:
-                print("Unknown Option ... Please Try Again")
+                print(colored("Unknown Option ... Please Try Again","red"))
 
 
 
@@ -150,12 +150,12 @@ while True:
 
             elif st == "" or st == None:
                 print()
-                print("Please Enter a choice")
+                print(colored("Please Enter a choice","red"))
                 print()
 
             else:
                 print()
-                print("Unknown Option please try again!!")
+                print(colored("Unknown Option ... Please Try Again","red"))
                 print()
 
 
@@ -167,7 +167,7 @@ while True:
 
     else:
         print()
-        print("Unknown option ... please try again")
+        print(colored("Unknown option ... please try again","red"))
         print()
 
 

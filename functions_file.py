@@ -133,7 +133,7 @@ class Admin:
                 else:
                     return quantity
                     flag = True
-            except TypeError:
+            except ValueError:
                 print(colored("Quantity is numbers ONLY","red"))
 
 
@@ -156,14 +156,15 @@ class Admin:
     def checkID(self):
         flag = False
         while not flag:
-            update = input("Enter Book id to update:   ")
+            update = input("Enter Book id:   ")
             try:
                 update = int(update)
                 if update <= 0:
                     print(colored("!!!!!", "red"))
-                    print(colored("ID cannot be negative or 0",""))
+                    print(colored("ID cannot be negative or 0","red"))
                     print(colored("!!!!!","red"))
                 else:
+                    return update
                     flag = True
             except ValueError:
                 print(colored("ID is numbers ONLY","red"))
@@ -201,7 +202,19 @@ class Admin:
                            "\n 5. to change status of book \nEnter Your Choice:   ")
             if (choice == '1'):
                 while True:
-                    new_id = int(input("Enter new book id:"))
+                    flag = False
+                    while not flag:
+                        new_id = input("Enter new book id:")
+                        try:
+                            new_id = int(new_id)
+                            if new_id <= 0:
+                                print(colored("!!!!!", "red"))
+                                print(colored("ID cannot be negative or 0", "red"))
+                                print(colored("!!!!!", "red"))
+                            else:
+                                flag = True
+                        except ValueError:
+                            print(colored("ID is numbers ONLY", "red"))
                     cursor.execute("SELECT * FROM book WHERE book_id = %s", (new_id,))
                     data = cursor.fetchone()
                     if data is not None:
@@ -279,7 +292,7 @@ class Admin:
 #---------------------------------------------- STUDENT FUNCTIONS ----------------------------------------------#
 #---------------------------------------------------------------------------------------------------------------#
 
-class student:
+class buyer:
 
 
 
@@ -289,7 +302,6 @@ class student:
         if list is not None:
             table = PrettyTable(['Book title', 'Quantity', 'Price'])
             total = 0
-            print(list)
 
             for record in list:
                 table.add_row([record[0], record[1], record[2]])
@@ -330,9 +342,9 @@ class student:
                     book_ID = int(input("Enter Book ID you want to buy:   "))
                     numOfbooks = int(input("How many copy you want?   "))
                     if numOfbooks <= 0:
-                        print("!!!!!!!")
+                        print(colored("!!!!!!!","red"))
                         print(colored("Quantity Can not be negative or 0","red"))
-                        print("!!!!!!!")
+                        print(colored("!!!!!!!","red"))
                     else:
                         break
                 except ValueError:
@@ -393,9 +405,14 @@ class student:
                 try:
                     book_ID = int(input("Enter Book ID you want to borrow:   "))
                     numOfbooks = int(input("How many copy you want?   "))
-                    break
+                    if numOfbooks <= 0:
+                        print(colored("!!!!!!!","red"))
+                        print(colored("Quantity Can not be negative or 0","red"))
+                        print(colored("!!!!!!!","red"))
+                    else:
+                        break
                 except ValueError:
-                    print(print("ID And Quaninty can only be a numbers!","red"))
+                    print(colored("ID And Quaninty can only be a numbers!","red"))
 
             cursor.execute("SELECT * FROM book WHERE book_id = %s", (book_ID,))
             data = cursor.fetchone()
