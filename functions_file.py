@@ -164,26 +164,18 @@ class Admin:
                     print(colored("ID cannot be negative or 0","red"))
                     print(colored("!!!!!","red"))
                 else:
-                    return update
-                    flag = True
+                    cursor.execute("SELECT * FROM book WHERE book_id = %s", (update,))
+                    data = cursor.fetchall()
+                    if len(data) > 0:
+                        return update
+                        flag = True
+                    else:
+                        print(colored("!!!!!", "red"))
+                        print(colored("This ID is not Exist", "red"))
+                        print(colored("!!!!!", "red"))
+                        continue
             except ValueError:
                 print(colored("ID is numbers ONLY","red"))
-
-
-    def checkExistID(self,update):
-
-        flag = False
-        while not flag:
-            cursor.execute("SELECT * FROM book WHERE book_id = %s", (update,))
-            data = cursor.fetchone()
-            if data is None:
-                print(colored("!!!!!", "red"))
-                print(colored("This ID is not Exist", "red"))
-                print(colored("!!!!!", "red"))
-                self.checkID()
-            else:
-                return update
-                flag = True
 
 
 
@@ -195,7 +187,6 @@ class Admin:
         print()
         while True:
             update = self.checkID()
-            self.checkExistID(update)
             print()
             choice = input("what information of book you want to update? \npress:\n 1. to change book id \n"
                            " 2. to change book name \n 3. to change book price \n 4. to change quantity of book "
